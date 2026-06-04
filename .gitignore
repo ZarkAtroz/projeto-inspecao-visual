@@ -1,0 +1,29 @@
+# Ambientes Virtuais
+.venv/
+venv/
+env/
+
+# Python Cache e Pacotes
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Ferramentas AI / Editores
+.claude/
+claude/
+
+# Dados e Datasets
+data/
+
+# Arquivos de Sistema Operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários e de compilação (LaTeX)
+texput.log
+*.aux
+*.out
+*.toc
