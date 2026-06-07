@@ -19,6 +19,7 @@ from skimage.feature import graycomatrix, graycoprops, local_binary_pattern
 from skimage.measure import regionprops, label as sk_label
 from skimage.filters import threshold_otsu
 
+# === REQUISITO BONUS: interface web em Streamlit ===
 # ─── Configuração da página ──────────────────────────────────────────────────
 st.set_page_config(
     page_title="Inspeção Visual de Frutas",
@@ -32,12 +33,7 @@ FIGURES_DIR = OUTPUT_DIR / "figures"
 # ─── Funções de segmentação (replicadas do notebook 01) ──────────────────────
 
 def segment_otsu(img_bgr: np.ndarray) -> np.ndarray:
-    """
-    Segmenta a fruta usando Otsu + morfologia (V2).
-    Estratégia: Otsu no canal de saturação HSV (separa fundo branco de fruta colorida);
-    fallback para canal cinza com detecção de inversão quando saturação não discrimina bem.
-    Retorna a máscara binária.
-    """
+    """Segmenta a fruta via Otsu no canal S do HSV com fallback para cinza + anti-inversao."""
     gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)
 
@@ -255,7 +251,6 @@ if uploaded is not None:
     if model_error:
         st.error(f"Não é possível realizar predição: {model_error}")
     else:
-        # Converter upload para numpy
         file_bytes = np.frombuffer(uploaded.read(), np.uint8)
         img_bgr = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
@@ -269,7 +264,6 @@ if uploaded is not None:
                 img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
                 st.image(img_rgb, use_container_width=True)
 
-            # Segmentação
             with st.spinner("Segmentando imagem..."):
                 mask = segment_otsu(img_bgr)
 
@@ -293,7 +287,6 @@ if uploaded is not None:
                 st.subheader("Segmentada (Otsu)")
                 st.image(segmented_rgb, use_container_width=True)
 
-            # Extração de features
             with st.spinner("Extraindo features..."):
                 features = extract_all_features(img_bgr, mask)
                 feature_vector = np.array(list(features.values())).reshape(1, -1)
@@ -331,14 +324,12 @@ if uploaded is not None:
                     st.progress(float(pred_prob))
                     st.caption(f"Confiança: {pred_prob * 100:.1f}%")
 
-                    # Top 3 probabilidades
                     st.subheader("Top probabilidades")
                     top3_idx = np.argsort(proba)[::-1][:3]
                     for i in top3_idx:
                         cls_name = label_mapping.get(str(i), f"Classe {i}")
                         st.metric(label=cls_name, value=f"{proba[i] * 100:.1f}%")
 
-            # Tabela de features
             st.divider()
             st.subheader("Features Extraídas")
             df_feat = pd.DataFrame(list(features.items()), columns=["Feature", "Valor"])

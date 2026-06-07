@@ -27,3 +27,12 @@ texput.log
 *.aux
 *.out
 *.toc
+
+# Relatório (será commitado separadamente)
+relatorio/
+
+# Arquivos de planejamento interno
+PLANO_*.md
+
+# Uploads e zips
+*.zip
