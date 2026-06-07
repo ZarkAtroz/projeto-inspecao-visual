@@ -15,24 +15,17 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{xcolor}
-\usepackage{listings}
 \usepackage{array}
 \usepackage{multirow}
-\usepackage{parskip}
 
 \geometry{margin=2.5cm}
+\setlength{\parskip}{0.25em}
+\setlength{\parindent}{0pt}
 
 \hypersetup{
     colorlinks=true,
     linkcolor=blue!60!black,
     urlcolor=blue!60!black,
-}
-
-\lstset{
-    basicstyle=\ttfamily\small,
-    backgroundcolor=\color{gray!10},
-    frame=single,
-    breaklines=true,
 }
 
 % ============================================================
@@ -44,16 +37,17 @@
     \vspace*{2cm}
 
     {\LARGE\bfseries Sistema de Inspeção Visual Automática de Frutas\par}
-    \vspace{0.5cm}
-    {\large Relatório Técnico --- Visão Computacional\par}
+    \vspace{0.4cm}
+    {\large Relatório Técnico\,|\,Visão Computacional\par}
 
-    \vspace{2cm}
-    \includegraphics[width=0.55\textwidth]{../outputs/figures/eda_exemplos_por_classe.png}
+    \vspace{1.8cm}
+    \includegraphics[width=0.52\textwidth]{../outputs/figures/eda_exemplos_por_classe.png}
 
-    \vspace{2cm}
+    \vspace{1.8cm}
     {\large
-        Felipe de Mello Vieira\\[0.3em]
-        Gabriel Sampaio Giacomoni\\[0.3em]
+        Felipe de Mello Vieira\\[0.25em]
+        Felipe Yukiya Soares Uemura\\[0.25em]
+        Gabriel Sampaio Giacomoni\\[0.25em]
         Leonardo Gabriel Herédia
     \par}
 
@@ -63,46 +57,43 @@
 
 % ── SUMÁRIO ──────────────────────────────────────────────────
 \tableofcontents
-\newpage
+\bigskip
 
 % ============================================================
-\section{Introdução}
+\section{Introdução e Dataset}
 % ============================================================
 
-A inspeção de qualidade de frutas é uma etapa crítica em centrais de distribuição e
-cadeias de suprimento alimentar. Atualmente, esse processo é realizado manualmente
-por operadores humanos, o que o torna lento, inconsistente e sujeito à fadiga.
-A visão computacional oferece uma alternativa eficiente: câmeras capturam imagens
-das frutas em tempo real e algoritmos classificam automaticamente a qualidade,
-permitindo segregação imediata de produtos impróprios para consumo.
-
-\textbf{Problema:} dado que uma fruta pertence a uma das espécies maçã, banana
-ou laranja, classificá-la automaticamente como \textit{fresca} ou \textit{podre}
-a partir de uma imagem RGB.
+A inspeção de qualidade de frutas em centrais de distribuição é realizada manualmente,
+processo lento e sujeito a inconsistências. Visão computacional permite automatizar
+essa tarefa: a partir de uma imagem RGB, classificar cada fruta como \textit{fresca}
+ou \textit{podre} em tempo real.
 
 \textbf{Dataset:} utilizamos o \textit{Fruit Quality Detection}
-\href{https://www.kaggle.com/datasets/sriramr/fruits-fresh-and-rotten-for-classification}{(Kaggle)}),
-com imagens capturadas sobre fundo controlado (branco). Para garantir balanceamento,
-aplicamos \textit{undersampling} aleatório com $\mathrm{random\_state}=42$, obtendo
-\textbf{1.200 imagens} distribuídas em \textbf{6 classes}, com exatamente
-\textbf{200 imagens por classe}:
-\texttt{fresh\_apple} (0), \texttt{fresh\_banana} (1), \texttt{fresh\_orange} (2),
-\texttt{rotten\_apple} (3), \texttt{rotten\_banana} (4), \texttt{rotten\_orange} (5).
+\href{https://www.kaggle.com/datasets/sriramr/fruits-fresh-and-rotten-for-classification}{(Kaggle)},
+com imagens sobre fundo branco controlado. Aplicamos \textit{undersampling} com
+$\mathrm{random\_state}{=}42$, obtendo \textbf{1.200 imagens}, \textbf{200 por classe},
+em 6 classes: \texttt{fresh\_apple}, \texttt{rotten\_apple}, \texttt{fresh\_banana},
+\texttt{rotten\_banana}, \texttt{fresh\_orange}, \texttt{rotten\_orange}.
 
-\begin{figure}[H]
+\textbf{Eliminação de data leakage:} o dataset original continha variantes augmentadas
+(\textit{rotated\_by\_15}, \textit{rotated\_by\_30}, \textit{salt\_and\_pepper}).
+Um split aleatório colocava variantes da mesma fruta em treino e teste, vazando
+${\approx}62\%$ das amostras. Removemos as variantes e revalidamos via \textit{perceptual
+hash}: restaram apenas 6 pares próximos em 1.200 imagens (${\approx}0{,}5\%$, desprezível).
+As métricas reportadas refletem essa configuração limpa.
+
+\begin{figure}[!htbp]
     \centering
-    \begin{subfigure}[b]{0.52\textwidth}
+    \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{../outputs/figures/eda_class_distribution.png}
-        \caption{Distribuição por classe após balanceamento.}
-        \label{fig:eda_dist}
+        \caption{Distribuição por classe (balanceada).}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.44\textwidth}
+    \begin{subfigure}[b]{0.46\textwidth}
         \includegraphics[width=\textwidth]{../outputs/figures/eda_exemplos_por_classe.png}
         \caption{Exemplos de imagens por classe.}
-        \label{fig:eda_exemplos}
     \end{subfigure}
-    \caption{Análise exploratória do dataset.}
+    \caption{Análise exploratória do dataset (200 imagens/classe, 6 classes).}
     \label{fig:eda}
 \end{figure}
 
@@ -110,560 +101,367 @@ aplicamos \textit{undersampling} aleatório com $\mathrm{random\_state}=42$, obt
 \section{Pipeline Proposto}
 % ============================================================
 
-O sistema é composto por cinco etapas sequenciais, desde a imagem bruta até a predição
-final de qualidade. A Figura~\ref{fig:pipeline} ilustra o fluxo:
+O sistema possui cinco etapas sequenciais. A divisão dos dados segue
+\textbf{70\% treino / 15\% validação / 15\% teste}, estratificado por classe.
+O \texttt{StandardScaler} é ajustado exclusivamente em $X_{\mathrm{train}}$.
 
-\begin{figure}[H]
-\centering
-\begin{lstlisting}
-Imagem RGB (fundo controlado)
-        |
-        v
-[1] Segmentacao (Otsu + morfologia)
-        |
-        v
-Objeto isolado (fundo preto)
-        |
-        v
-[2] Extracao de features
-    Shape (6) + Hu Moments (7) + Cor HSV (22) + GLCM (4) + LBP (26)
-        |
-        v
-Matriz X  [1200 x 79 features]
-        |
-        v
-[3] Classificador (SVM / RF / LR  +  GridSearchCV)
-        |
-        v
-Predicao: fresh_apple | rotten_apple | fresh_banana | ...
-\end{lstlisting}
-\caption{Pipeline completo do sistema de inspeção visual.}
-\label{fig:pipeline}
-\end{figure}
-
-A divisão dos dados segue o esquema \textbf{70\% treino / 15\% validação / 15\% teste},
-estratificado por classe com $\mathrm{random\_state}=42$.
-A normalização (\texttt{StandardScaler}) é ajustada \emph{exclusivamente} em
-$X_\mathrm{train}$, evitando vazamento de dados para validação e teste.
+\begin{samepage}
+{\small
+\begin{verbatim}
+  Imagem RGB (fundo controlado)
+          |
+          v
+  [1] Segmentacao Otsu V2 (HSV-S + fallback)  -->  mascara binaria
+          |
+          v
+  [2] Extracao de features:
+      Shape(6) + Hu(7) + Cor HSV(22) + GLCM(4) + LBP(26) = 65 features
+          |
+          v
+  [3] Classificador  (RF / SVM / LR  +  GridSearchCV, k=5)
+          |
+          v
+  Predicao: fresh_apple | rotten_apple | fresh_banana | ...
+\end{verbatim}
+}
+\end{samepage}
 
 % ============================================================
 \section{Segmentação}
 % ============================================================
 
-A segmentação é a etapa que isola o objeto de interesse (fruta) do fundo da imagem,
-eliminando pixels de fundo antes da extração de features.
-Dois métodos foram implementados e comparados.
+\textbf{Otsu V2 (escolhido):} aplicamos Otsu no canal de \emph{saturação} (S) do espaço
+HSV, explorando o contraste entre fundo branco (saturação baixa) e fruta colorida
+(saturação alta). Quando a saturação não discrimina bem (máscara $< 5\%$ ou $> 70\%$),
+um fallback aplica Otsu no canal de cinza com detecção automática de inversão
+(compara intensidade de borda vs.\ centro). Morfologia com kernel elíptico $5{\times}5$
+(erosão + dilatação, 2 iterações) remove ruído; o maior contorno é retido.
+\textbf{Zero erros em 1.200 imagens.}
 
-\subsection{Método 1: Limiarização de Otsu com Morfologia}
+\textbf{Watershed:} usa o canal S como mapa de distância, picos locais como marcadores
+e inundação sobre o negativo do mapa. Mais adequado para cenas não controladas com
+objetos sobrepostos, mas exige maior parametrização e é sensível a sombras.
 
-O método de Otsu encontra automaticamente o limiar global $t^*$ que minimiza a
-variância intra-classe entre pixels de fundo e objeto:
-\[
-    t^* = \arg\min_t \bigl[\omega_0(t)\,\sigma_0^2(t) + \omega_1(t)\,\sigma_1^2(t)\bigr]
-\]
-
-O pipeline aplicado foi:
-(1)~conversão para escala de cinza;
-(2)~suavização com \texttt{GaussianBlur}($5{\times}5$);
-(3)~cálculo de $t^*$ e binarização;
-(4)~erosão seguida de dilatação (kernel elíptico $5{\times}5$, 2 iterações);
-(5)~extração do maior contorno e preenchimento da máscara final.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{../outputs/figures/seg_otsu_comparacao.png}
-    \caption{Segmentação Otsu: imagem original, máscara binária e resultado por classe.}
-    \label{fig:otsu}
-\end{figure}
-
-\subsection{Método 2: Watershed}
-
-O Watershed trata a imagem como um mapa topográfico e ``inunda'' vales a partir de
-marcadores. O procedimento foi:
-(1)~conversão para HSV e uso do canal de saturação S;
-(2)~limiarização da saturação para criar máscara inicial;
-(3)~transformada de distância (\texttt{ndi.distance\_transform\_edt});
-(4)~detecção de picos locais (\texttt{peak\_local\_max}, $\mathrm{min\_distance}=20$);
-(5)~aplicação do Watershed sobre o negativo do mapa de distância;
-(6)~seleção do segmento central como objeto.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{../outputs/figures/seg_watershed_comparacao.png}
-    \caption{Segmentação Watershed: imagem original, máscara e resultado por classe.}
-    \label{fig:watershed}
-\end{figure}
-
-\subsection{Comparação e Escolha do Método}
-
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
-\caption{Comparação entre Otsu e Watershed para o dataset utilizado.}
-\label{tab:seg_comp}
+\caption{Comparação entre Otsu V2 e Watershed.}
+\label{tab:seg}
+\small
 \begin{tabular}{lll}
 \toprule
-\textbf{Critério} & \textbf{Otsu} & \textbf{Watershed} \\
+\textbf{Critério} & \textbf{Otsu V2} & \textbf{Watershed} \\
 \midrule
 Robustez ao fundo controlado & Alta & Média \\
-Limpeza da máscara           & Alta & Média (falsos positivos com sombra) \\
-Parametrização necessária    & Baixa (automática) & Alta (saturação mínima, distância) \\
-Sensibilidade a sombras      & Baixa & Alta \\
-Erros de segmentação         & 0 / 1.200 & Ocasionais \\
+Limpeza da máscara           & Alta & Média (falsos positivos) \\
+Parametrização               & Baixa (automática) & Alta \\
+Erros em 1.200 imagens       & \textbf{0} & Ocasionais \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Método escolhido: Otsu.}
-Para imagens com fundo controlado (branco uniforme), o limiar de Otsu separa com alta
-confiabilidade o objeto do fundo, e o maior contorno elimina resíduos de ruído.
-O Watershed exige maior parametrização e apresenta falsos positivos em regiões com
-gradiente ou sombra, sendo mais adequado para cenas não controladas com objetos
-sobrepostos. O método Otsu resultou em \textbf{zero erros de segmentação} nas 1.200
-imagens processadas.
-
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=\textwidth]{../outputs/figures/seg_comparacao_metodos.png}
-    \caption{Comparação visual: original, Otsu e Watershed em imagens de classes mistas.}
-    \label{fig:seg_comp}
+    \includegraphics[width=0.92\textwidth]{../outputs/figures/seg_comparacao_metodos.png}
+    \caption{Comparação: original, Otsu V2 e Watershed em imagens de classes mistas.}
+    \label{fig:seg}
 \end{figure}
 
 % ============================================================
 \section{Features Extraídas}
 % ============================================================
 
-Para cada imagem segmentada, extraímos um vetor de \textbf{79 features}
-agrupadas em 5 famílias, conforme descrito na Tabela~\ref{tab:features}.
+Para cada imagem segmentada, extraímos \textbf{65 features} em 5 famílias.
+A GLCM usou $\mathrm{distances}{=}[1]$ e ângulos $\{0°,45°,90°,135°\}$ (média das
+4 direções para invariância direcional). O LBP usou $P{=}24$, $R{=}3$,
+método \texttt{uniform} (26 bins).
 
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
-\caption{Famílias de features extraídas por imagem.}
+\caption{Famílias de features extraídas por imagem segmentada.}
 \label{tab:features}
-\begin{tabular}{p{2.8cm} c p{4.5cm} p{5cm}}
+\small
+\begin{tabular}{p{2.4cm} c p{4.6cm} p{4.6cm}}
 \toprule
 \textbf{Família} & \textbf{N} & \textbf{Features} & \textbf{Justificativa} \\
 \midrule
-Forma (Shape) & 6 &
-    area, perimeter, eccentricity, solidity, extent, circularity
-    & Frutas podres podem apresentar amassados, deformações ou perda de volume. \\
-\midrule
-Momentos de Hu & 7 &
-    $\mathrm{hu}_1 \ldots \mathrm{hu}_7$ em escala $-\mathrm{sign}(h)\log_{10}|h|$
-    & Invariantes a rotação, escala e translação; capturam a forma global do objeto. \\
-\midrule
+Forma & 6 &
+    area, perimeter, eccentricity, solidity, extent, circularity &
+    Podridão causa amassados e perda de volume. \\
+Momentos Hu & 7 &
+    $\mathrm{hu}_1\ldots\mathrm{hu}_7$ (escala log) &
+    Invariantes a rotação, escala e translação. \\
 Cor HSV & 22 &
-    h/s/v mean, h/s/v std + histograma de matiz (16 bins)
-    & Manchas escuras (marrons/pretas) e perda de saturação são os indicadores primários de podridão. \\
-\midrule
+    h/s/v mean e std; histograma matiz (16 bins) &
+    Manchas e perda de saturação indicam deterioração. \\
 Textura GLCM & 4 &
-    contrast, homogeneity, energy, correlation
-    & Superfícies com mofo ou rugosidade irregular apresentam maior contraste e menor energia. \\
-\midrule
+    contrast, homogeneity, energy, correlation &
+    Mofo aumenta contraste e reduz energia. \\
 Textura LBP & 26 &
-    histograma normalizado (26 bins), radius=3, n\_points=24, method=uniform
-    & Padrões locais de textura complementares ao GLCM; captura microestruturas da casca. \\
+    histograma normalizado (26 bins) &
+    Padrões locais de casca complementam GLCM. \\
 \midrule
-\textbf{Total} & \textbf{79} & & \\
+\textbf{Total} & \textbf{65} & & \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-A GLCM foi calculada com $\mathrm{distances}=[1]$ e quatro ângulos
-$\{0°, 45°, 90°, 135°\}$, usando a média das quatro direções para cada propriedade,
-conferindo invariância direcional.
 
 % ============================================================
 \section{Análise e Seleção de Features}
 % ============================================================
 
-\subsection{Boxplots por Classe}
-
-A Figura~\ref{fig:boxplots} mostra a distribuição das features mais relevantes.
-Observa-se que \texttt{h\_mean} (matiz média) e \texttt{s\_mean} (saturação média)
-apresentam separação clara entre classes \textit{fresh} e \textit{rotten}:
-frutas frescas possuem saturação elevada e matiz consistente com a espécie,
-enquanto frutas podres exibem queda na saturação e desvio no canal de matiz.
-
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=\textwidth]{../outputs/figures/boxplots_por_classe.png}
-    \caption{Boxplots das principais features por classe.}
-    \label{fig:boxplots}
-\end{figure}
-
-\subsection{Seleção por SelectKBest e Importância RF}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{../outputs/figures/selectkbest_scores.png}
-        \caption{Top 15 features por F-score (SelectKBest).}
-        \label{fig:skb}
+    \begin{subfigure}[b]{0.57\textwidth}
+        \includegraphics[width=\textwidth]{../outputs/figures/boxplots_por_classe.png}
+        \caption{Boxplots das principais features por classe.}
+        \label{fig:boxplots}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{../outputs/figures/rf_feature_importance.png}
-        \caption{Top 20 features por importância (Random Forest).}
-        \label{fig:rfimp}
+    \begin{subfigure}[b]{0.40\textwidth}
+        \includegraphics[width=\textwidth]{../outputs/figures/selectkbest_scores.png}
+        \caption{Top features por F-score (SelectKBest).}
+        \label{fig:skb}
     \end{subfigure}
-    \caption{Ranking de relevância das features por dois métodos distintos.}
-    \label{fig:feature_rank}
+    \caption{Distribuição por classe e ranking de relevância univariada das features.}
+    \label{fig:feat_analysis}
 \end{figure}
 
-Ambos os métodos convergem: \texttt{h\_mean}, \texttt{s\_mean} e \texttt{v\_mean}
-consistentemente lideram os rankings. Features de textura (LBP, GLCM) ocupam posições
-intermediárias, e features de forma ficam nas últimas posições.
+\texttt{v\_mean} e \texttt{h\_mean} separam claramente frutas frescas e podres.
+SelectKBest elege como top~5: \texttt{lbp\_3}, \texttt{lbp\_4}, \texttt{lbp\_2},
+\texttt{v\_mean}, \texttt{lbp\_5}. Importância RF: \texttt{v\_mean},
+\texttt{h\_hist\_1}, \texttt{hu\_1}, \texttt{lbp\_3}, \texttt{h\_mean}.
+Ambos destacam textura LBP e cor HSV.
 
-\subsection{PCA — Visualização da Separabilidade}
-
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.75\textwidth]{../outputs/figures/pca_2d.png}
-    \caption{Projeção PCA 2D das 79 features, colorida por classe.}
-    \label{fig:pca2d}
+    \includegraphics[width=0.60\textwidth]{../outputs/figures/pca_2d.png}
+    \caption{PCA 2D (PC1=22,6\%, PC2=14,3\%; total 36,2\%). Agrupamentos parcialmente
+             separados confirmam a discriminatividade das features.}
+    \label{fig:pca}
 \end{figure}
 
-A projeção em 2 componentes principais revela agrupamentos parcialmente separados:
-frutas frescas e podres da mesma espécie tendem a ocupar regiões distintas,
-confirmando a discriminatividade do espaço de features construído.
+\textbf{Ablation Study:} treinamento com CV ($k{=}5$) em $X_{\mathrm{train}}$,
+F1-macro por família:
 
-\subsection{Ablation Study}
-
-Para quantificar a contribuição de cada família de features, treinamos SVM, RF e LR
-em quatro grupos com validação cruzada estratificada ($k=5$) em $X_\mathrm{train}$.
-
-\begin{table}[H]
-\centering
-\caption{Ablation study: F1-macro médio $\pm$ desvio padrão por grupo e modelo (CV=5).}
-\label{tab:ablation}
-\begin{tabular}{lrrr}
-\toprule
-\textbf{Grupo de Features} & \textbf{SVM} & \textbf{RF} & \textbf{LR} \\
-\midrule
-G1: Cor (HSV, 22 feat.)       & $0{,}628 \pm 0{,}030$ & $\mathbf{0{,}700} \pm 0{,}029$ & $0{,}468 \pm 0{,}040$ \\
-G2: Textura (GLCM+LBP, 30 feat.) & $0{,}646 \pm 0{,}030$ & $0{,}659 \pm 0{,}041$ & $0{,}645 \pm 0{,}010$ \\
-G3: Forma (Shape+Hu, 13 feat.)  & $0{,}380 \pm 0{,}035$ & $0{,}427 \pm 0{,}029$ & $0{,}321 \pm 0{,}040$ \\
-G4: Todos (79 feat.)           & $0{,}782 \pm 0{,}030$ & $\mathbf{0{,}823} \pm 0{,}015$ & $0{,}798 \pm 0{,}017$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.72\textwidth]{../outputs/figures/ablation_heatmap.png}
-    \caption{Heatmap do ablation study: F1-macro por grupo de features e modelo.}
+    \begin{subfigure}[b]{0.50\textwidth}
+        \small
+        \begin{tabular}{lrrr}
+        \toprule
+        \textbf{Grupo} & \textbf{LR} & \textbf{RF} & \textbf{SVM} \\
+        \midrule
+        G1: Cor (HSV)      & 0{,}643 & 0{,}831 & 0{,}742 \\
+        G2: Textura        & 0{,}819 & 0{,}835 & 0{,}828 \\
+        G3: Forma          & 0{,}532 & 0{,}660 & 0{,}556 \\
+        \textbf{G4: Todos} & \textbf{0{,}906} & \textbf{0{,}912} & \textbf{0{,}900} \\
+        \bottomrule
+        \end{tabular}
+        \vspace{0.3em}
+        \caption{F1-macro por grupo (CV=5).}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.46\textwidth}
+        \includegraphics[width=\textwidth]{../outputs/figures/ablation_heatmap.png}
+        \caption{Heatmap do ablation study.}
+    \end{subfigure}
+    \caption{Ablation study: contribuição de cada família de features.}
     \label{fig:ablation}
 \end{figure}
 
-\textbf{Principais conclusões do ablation study:}
-\begin{itemize}
-    \item \textbf{Cor (G1)} é o grupo mais discriminativo individualmente
-          (RF: $0{,}700$), confirmando que a deterioração afeta primariamente a coloração.
-    \item \textbf{Textura (G2)} é o segundo grupo mais informativo (RF: $0{,}659$),
-          capturando mudanças de superfície como mofo e rugosidade.
-    \item \textbf{Forma (G3)} tem menor poder isolado (RF: $0{,}427$), pois frutas
-          frescas e podres da mesma espécie mantêm geometria similar.
-    \item \textbf{Combinação completa (G4)} supera qualquer grupo isolado em
-          aproximadamente 12 pontos percentuais de F1-macro (RF: $0{,}823$),
-          evidenciando a complementaridade entre as famílias.
-\end{itemize}
+Cor (G1) e textura (G2) são os grupos mais informativos isoladamente.
+G4 supera o melhor grupo isolado em ${\approx}8\,\mathrm{pp}$ (RF: $0{,}831 \to 0{,}912$).
+Forma (G3) tem menor poder discriminativo isolado.
 
-\subsection{Seleção por RFE}
-
-A Eliminação Recursiva de Features (RFE) com Random Forest e validação cruzada
-$k=3$ identificou \textbf{55 das 79 features} como ótimas, sem perda de desempenho.
-As features eliminadas foram principalmente bins extremos do histograma de matiz
-(\texttt{h\_hist\_11}, \texttt{h\_hist\_14}) e bins LBP de baixa frequência
-(\texttt{lbp\_9}, \texttt{lbp\_10}, \texttt{lbp\_18}, \texttt{lbp\_23}),
-que carregam pouca variância discriminativa.
+\textbf{RFE:} Eliminação Recursiva com RF ($k{=}3$) selecionou \textbf{45 de 65 features}
+sem perda mensurável. As 20 eliminadas são bins extremos do histograma de matiz e bins
+LBP de baixa variância discriminativa.
 
 % ============================================================
 \section{Classificadores}
 % ============================================================
 
-Três algoritmos clássicos de aprendizado supervisionado foram treinados e otimizados
-via \texttt{GridSearchCV} com \texttt{StratifiedKFold}($k=5$) e métrica
-\texttt{f1\_macro}. A busca foi realizada em $X_\mathrm{trainval}$ (treino + validação).
+Treinamos três classificadores clássicos: SVM com kernel RBF, Random Forest e
+Regressão Logística. Para cada modelo, aplicamos \texttt{GridSearchCV} com
+\texttt{StratifiedKFold} ($k{=}5$) sobre o conjunto treino+validação, usando
+F1-macro como métrica de seleção. O conjunto de teste foi mantido isolado em
+toda essa etapa. A Tabela~\ref{tab:classif} apresenta os espaços de busca e
+os melhores hiperparâmetros encontrados.
 
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
-\caption{Configuração dos classificadores e melhores hiperparâmetros encontrados.}
+\caption{Configuração e melhores hiperparâmetros dos classificadores (\texttt{GridSearchCV},
+         \texttt{StratifiedKFold} $k{=}5$, métrica \texttt{f1\_macro}).}
 \label{tab:classif}
-\begin{tabular}{p{3cm} p{3.2cm} p{4.5cm} p{3.5cm}}
+\small
+\begin{tabular}{p{2.2cm} p{2.8cm} p{5.0cm} p{2.8cm}}
 \toprule
 \textbf{Modelo} & \textbf{Biblioteca} & \textbf{Espaço de busca} & \textbf{Melhor config.} \\
 \midrule
 SVM &
-\texttt{sklearn.svm.SVC} &
-C $\in \{0.1, 1, 10, 100\}$, kernel $\in \{\mathrm{rbf}, \mathrm{linear}\}$, gamma $\in \{\mathrm{scale}, \mathrm{auto}\}$ &
-C=10, kernel=rbf, gamma=scale \\
-\midrule
+\texttt{SVC} &
+C $\in\{0.1,1,10,100\}$; kernel $\in\{\mathrm{rbf,linear}\}$; gamma $\in\{\mathrm{scale,auto}\}$ &
+C=10, rbf, scale \\
 Random Forest &
-\texttt{RandomForestClassifier} &
-n\_estimators $\in \{100, 200\}$, max\_depth $\in \{\mathrm{None}, 10, 20\}$, min\_samples\_split $\in \{2, 5\}$ &
-n\_est.=100, max\_depth=None, min\_split=2 \\
-\midrule
-Logistic Reg. &
-\texttt{LogisticRegression} &
-C $\in \{0.01, 0.1, 1, 10\}$, penalty $\in \{\ell_1, \ell_2\}$, solver=liblinear &
-C=1, penalty=$\ell_2$ \\
+\texttt{RandomForest\-Classifier} &
+n\_est $\in\{100,200\}$; max\_depth $\in\{\mathrm{None},10,20\}$; min\_split $\in\{2,5\}$ &
+n\_est=200, depth=None, split=2 \\
+Log.\ Regression &
+\texttt{Logistic\-Regression} &
+C $\in\{0.01,0.1,1,10\}$; penalty $\in\{\ell_1,\ell_2\}$; solver=liblinear &
+C=10, $\ell_1$, liblinear \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-Todos os pipelines incluem \texttt{StandardScaler} ajustado exclusivamente em
-$X_\mathrm{train}$, garantindo que nenhuma informação dos conjuntos de validação
-ou teste influencie a normalização.
 
 % ============================================================
 \section{Resultados e Métricas}
 % ============================================================
 
-\subsection{Tabela Comparativa Final}
-
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
 \caption{Resultados no test set (15\% estratificado, 180 amostras).}
 \label{tab:results}
+\small
 \begin{tabular}{lrrrrr}
 \toprule
-\textbf{Modelo} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-macro} & \textbf{AUC} \\
+\textbf{Modelo} & \textbf{Acc.} & \textbf{Prec.} & \textbf{Rec.} & \textbf{F1-macro} & \textbf{AUC} \\
 \midrule
-\textbf{SVM} (RBF, C=10) \textit{(melhor clássico)} & \textbf{95{,}00\%} & \textbf{95{,}50\%} & \textbf{95{,}00\%} & \textbf{0{,}949} & \textbf{0{,}996} \\
-Random Forest                        & 92{,}78\% & 93{,}09\% & 92{,}78\% & 0{,}927 & 0{,}993 \\
-Logistic Regression ($\ell_2$, C=1) & 89{,}44\% & 89{,}74\% & 89{,}44\% & 0{,}894 & 0{,}988 \\
-\textbf{MobileNetV2} (bônus)        & \textbf{98{,}33\%} & \textbf{98{,}40\%} & \textbf{98{,}33\%} & \textbf{0{,}983} & *  \\
+\textbf{Random Forest} \textit{(melhor clássico)} &
+    \textbf{95{,}00\%} & \textbf{95{,}00\%} & \textbf{95{,}00\%} & \textbf{0{,}950} & \textbf{0{,}9951} \\
+SVM (RBF, C=10) &
+    93{,}89\% & 94{,}18\% & 93{,}89\% & 0{,}939 & 0{,}9930 \\
+Log.\ Regression ($\ell_1$, C=10) &
+    91{,}11\% & 91{,}12\% & 91{,}11\% & 0{,}910 & 0{,}9900 \\
+\textbf{MobileNetV2} \textit{(bônus)} &
+    \textbf{97{,}22\%} & \textbf{97{,}40\%} & \textbf{97{,}22\%} & \textbf{0{,}972} & {*} \\
 \bottomrule
 \end{tabular}
 \end{table}
-{\small * AUC não calculado para MobileNetV2 --- métrica aplicada apenas aos modelos clássicos via one-vs-rest.}
+{\small * AUC não calculado para MobileNetV2 (one-vs-rest aplicado apenas aos modelos clássicos).}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{../outputs/figures/tabela_comparativa_final.png}
-    \caption{Tabela comparativa final: modelos clássicos e CNN.}
-    \label{fig:tabela_final}
-\end{figure}
+Validação cruzada ($k{=}5$) em $X_{\mathrm{train}}$:
+SVM $0{,}945\pm0{,}014$, RF $0{,}928\pm0{,}010$, LR $0{,}923\pm0{,}012$.
+Baixas variâncias confirmam estabilidade.
 
-\subsection{Matrizes de Confusão}
-
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{../outputs/figures/cm_rf.png}
-        \caption{Random Forest (melhor clássico).}
-        \label{fig:cm_rf}
+        \caption{Matriz de confusão do RF (9/180 erros).}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{../outputs/figures/cm_svm.png}
-        \caption{SVM (RBF).}
-        \label{fig:cm_svm}
-    \end{subfigure}
-    \caption{Matrizes de confusão normalizadas no test set.}
-    \label{fig:cms}
-\end{figure}
-
-As matrizes revelam que a maior fonte de confusão ocorre entre espécies diferentes
-na mesma condição de qualidade (e.g., \texttt{rotten\_banana} $\leftrightarrow$
-\texttt{rotten\_orange}), possivelmente devido à sobreposição de colorações
-amarelo-escuras características da deterioração em ambas as espécies.
-
-\subsection{Curvas ROC e Validação Cruzada}
-
-\begin{figure}[H]
-    \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{../outputs/figures/roc_rf.png}
-        \caption{Curvas ROC one-vs-rest do Random Forest.}
-        \label{fig:roc}
+        \caption{Curvas ROC one-vs-rest do RF.}
     \end{subfigure}
-    \hfill
+    \caption{Avaliação do Random Forest (melhor clássico) no test set.}
+    \label{fig:rf_eval}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{../outputs/figures/crossval_boxplot.png}
-        \caption{F1-macro por fold (CV=5) nos três modelos.}
-        \label{fig:cv}
-    \end{subfigure}
-    \caption{Avaliação de discriminação (ROC) e estabilidade (validação cruzada).}
-    \label{fig:roc_cv}
-\end{figure}
-
-O SVM apresenta AUC médio de 0,996 com menor variância entre folds,
-indicando ser o modelo mais estável e discriminativo dentre os clássicos.
-O Random Forest segue próximo (AUC = 0,993), enquanto a Logistic Regression
-mostra maior variabilidade em alguns folds mas ainda atinge AUC = 0,988.
-
-\subsection{Interpretabilidade com SHAP}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{../outputs/figures/shap_bar.png}
-        \caption{Importância SHAP média absoluta (top 20).}
-        \label{fig:shap_bar}
+        \caption{F1-macro por fold (CV=5, $X_{\mathrm{train}}$).}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{../outputs/figures/shap_summary.png}
-        \caption{SHAP beeswarm: distribuição dos valores por feature.}
-        \label{fig:shap_beeswarm}
+        \includegraphics[width=\textwidth]{../outputs/figures/shap_bar.png}
+        \caption{Importância SHAP absoluta média do RF (top 20).}
     \end{subfigure}
-    \caption{Análise SHAP (TreeExplainer) no Random Forest com test set.}
-    \label{fig:shap}
-\end{figure}
-
-A análise SHAP confirma o resultado do ablation study: \texttt{h\_mean} (matiz média)
-e \texttt{s\_mean} (saturação média) são as features de maior impacto médio nas
-predições. Features LBP e de histograma de matiz aparecem nas posições seguintes,
-sugerindo que tanto a distribuição global de cor quanto os padrões locais de textura
-contribuem para a decisão.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.65\textwidth]{../outputs/figures/shap_waterfall_0.png}
-    \caption{SHAP waterfall para um exemplo correto de \texttt{fresh\_apple}:
-             contribuição de cada feature para a predição individual.}
-    \label{fig:waterfall}
+    \caption{Estabilidade (validação cruzada) e interpretabilidade (SHAP).
+             \texttt{v\_mean} e \texttt{h\_mean} dominam as predições, resultado coerente com o domínio.}
+    \label{fig:cv_shap}
 \end{figure}
 
 % ============================================================
 \section{Análise de Erros}
 % ============================================================
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=\textwidth]{../outputs/figures/analise_erros.png}
+    \includegraphics[width=0.88\textwidth]{../outputs/figures/analise_erros.png}
     \caption{Exemplos de erros do Random Forest no test set (classe real vs.\ predita).}
     \label{fig:erros}
 \end{figure}
 
-A análise visual dos erros permite identificar quatro hipóteses principais:
-
-\begin{enumerate}
-    \item \textbf{Frutas no limiar de maturação:} frutas com grau de maturidade
-    intermediário exibem coloração entre o estado fresco e o podre, dificultando
-    a separação por features de cor. Isso é especialmente frequente em maçãs
-    com início de oxidação superficial.
-
-    \item \textbf{Sombras na superfície:} reflexos difusos ou sombras de contato
-    criam regiões escuras que simulam manchas de podridão, elevando o valor de
-    \texttt{glcm\_contrast} e reduzindo \texttt{s\_mean}, levando o modelo a
-    classificar erroneamente como podre.
-
-    \item \textbf{Reflexo especular:} pontos de brilho intenso alteram
-    \texttt{h\_mean} e \texttt{v\_mean} localmente, features que são as mais
-    discriminativas segundo SHAP, introduzindo ruído nas predições.
-
-    \item \textbf{Banana madura mas fresca:} bananas maduras apresentam coloração
-    amarelo-escuro com manchas naturais que se assemelham às de \texttt{rotten\_banana},
-    resultando em falsos positivos para podridão.
-\end{enumerate}
-
-Esses casos ilustram uma limitação inerente ao pipeline clássico: a dependência
-de features globais de cor pode ser comprometida por variações locais de iluminação
-não removidas pela segmentação.
+O RF comete 9 erros; a classe mais difícil é \texttt{rotten\_apple}
+(recall\,$=\,0{,}90$; 3 erros). Hipóteses:
+(1)~maçãs com oxidação inicial apresentam coloração intermediária, enganando features de cor;
+(2)~sombras difusas elevam \texttt{glcm\_contrast} e reduzem \texttt{s\_mean}, induzindo
+falsos positivos;
+(3)~reflexo especular altera \texttt{h\_mean} e \texttt{v\_mean} (as features de maior
+peso SHAP);
+(4)~bananas maduras com manchas naturais se assemelham a \texttt{rotten\_banana} pelo
+histograma de matiz.
 
 % ============================================================
 \section{Conclusão}
 % ============================================================
 
-Este trabalho desenvolveu e avaliou um sistema completo de inspeção visual automática
-de frutas, combinando segmentação por Otsu, extração de 79 features multi-domínio e
-três classificadores clássicos otimizados por busca em grade.
-
-\textbf{Principais conclusões:}
-
-\begin{itemize}
-    \item O \textbf{SVM (RBF)} é o melhor modelo clássico
-          (F1-macro = 0,949, AUC = 0,996), recomendado para produção em
-          ambientes com apenas CPU disponível, dada a leveza do modelo.
-
-    \item A \textbf{cor HSV} é a família de features mais discriminativa
-          individualmente (RF: F1 = 0,700); features de forma isoladas são
-          insuficientes (RF: F1 = 0,427).
-
-    \item A \textbf{combinação de todas as famílias} (G4) supera o melhor grupo
-          individual em $\approx$12 pontos percentuais de F1-macro, evidenciando
-          a complementaridade entre cor, textura e forma.
-
-    \item O \textbf{MobileNetV2} superou os modelos clássicos em
-          \textbf{+3,4\% de F1-macro} (0,983 vs.\ 0,949), mas requer GPU e
-          apresenta menor interpretabilidade.
-
-    \item Para uma \textbf{linha de inspeção com CPU embarcada}: RF com o conjunto
-          completo de features (G4) oferece a melhor relação desempenho/custo.
-
-    \item Para \textbf{máxima acurácia com GPU disponível}: MobileNetV2 é
-          preferível, com suporte a Grad-CAM para auditoria visual das decisões.
+\begin{itemize}\setlength{\itemsep}{0pt}
+    \item O \textbf{Random Forest} atingiu F1-macro $= 0{,}950$ (AUC $= 0{,}9951$),
+          melhor resultado clássico; adequado para CPU embarcada com interpretabilidade via SHAP.
+    \item Entre as famílias de features, \textbf{cor HSV} se destaca individualmente
+          (RF: F1 $= 0{,}831$); textura LBP aparece como segunda mais discriminativa
+          segundo SHAP e SelectKBest.
+    \item A \textbf{combinação completa} (G4) supera o melhor grupo isolado em
+          ${\approx}8\,\mathrm{pp}$, confirmando sinergia entre cor, textura e forma.
+    \item \textbf{MobileNetV2} supera os clássicos em $+2{,}2\,\mathrm{pp}$ de F1-macro
+          ($0{,}972$ vs.\ $0{,}950$), ao custo de maior complexidade computacional e
+          menor interpretabilidade direta.
+    \item Para \textbf{máxima acurácia com GPU}: MobileNetV2 com Grad-CAM.
+          Para \textbf{CPU embarcada}: RF com o pipeline clássico.
 \end{itemize}
 
-\clearpage
 % ============================================================
-\section{Bônus e Nível Avançado}
+\section{Bônus e Discussão Avançada}
 % ============================================================
 
-\subsection{MobileNetV2 com Transfer Learning}
+{\small
+\textbf{MobileNetV2 (Transfer Learning):}
+Treinamento em duas fases: (1)~backbone ImageNet congelado; cabeça
+(\texttt{GAP}$\!\to\!$\texttt{Dropout}(0,3)$\!\to\!$\texttt{Dense}(128)$\!\to\!$\texttt{Softmax}(6))
+por 10 épocas (\texttt{Adam}, lr$=10^{-3}$);
+(2)~fine-tuning dos últimos 30 layers por 10 épocas (\texttt{Adam}, lr$=10^{-4}$).
+Acurácia de treino $= 1{,}000$ e validação $\approx 0{,}975$ indicam
+\textbf{overfitting leve} (${\approx}2{,}5\,\mathrm{pp}$), esperado com apenas
+${\approx}840$ imagens de treino.
+}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{../outputs/figures/cnn_training_curves.png}
-        \caption{Curvas de loss e accuracy (fase 1: cabeça; fase 2: fine-tuning).}
-        \label{fig:cnn_curves}
+    \begin{subfigure}[b]{0.47\textwidth}
+        \includegraphics[width=\textwidth,height=4.2cm,keepaspectratio]{../outputs/figures/cnn_training_curves.png}
+        \caption{Curvas de treino e validação (fases 1 e 2).}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{../outputs/figures/gradcam_exemplos.png}
+    \begin{subfigure}[b]{0.47\textwidth}
+        \includegraphics[width=\textwidth,height=4.2cm,keepaspectratio]{../outputs/figures/gradcam_exemplos.png}
         \caption{Grad-CAM: regiões de atenção por classe.}
-        \label{fig:gradcam}
     \end{subfigure}
-    \caption{CNN MobileNetV2: treinamento e interpretabilidade via Grad-CAM.}
+    \caption{MobileNetV2: dinâmica de treinamento e interpretabilidade Grad-CAM.}
     \label{fig:cnn}
 \end{figure}
 
-A MobileNetV2 foi treinada em duas fases:
-(1)~\textbf{Fase 1} --- backbone ImageNet congelado, apenas a cabeça
-(\texttt{GlobalAveragePooling2D} $\to$ \texttt{Dropout}(0,3) $\to$ \texttt{Dense}(128)
-$\to$ \texttt{Softmax}(6)) treinada por até 20 épocas (\texttt{Adam}, lr=$10^{-3}$);
-(2)~\textbf{Fase 2} --- fine-tuning dos últimos 30 layers do backbone por até 10
-épocas (\texttt{Adam}, lr=$10^{-4}$). Ambas usaram \texttt{EarlyStopping} e
-\texttt{ReduceLROnPlateau}. Resultado: \textbf{F1-macro = 0,983} no test set.
+{\small
+\textbf{Discussão do Data Leakage:}
+O dataset Kaggle continha variantes augmentadas (rotações de 15°, 30° e ruído
+\textit{salt-and-pepper}). Um split aleatório sem agrupamento vazava ${\approx}62\%$
+das amostras de teste para o treino. Removemos as variantes e revalidamos via pHash
+(${\leq}0{,}5\%$ de pares residuais). As features clássicas (Hu, HSV média, GLCM
+com média de 4 ângulos) são majoritariamente \textbf{invariantes à rotação}: o
+leakage por rotação contribuía redundância, não informação nova, afetando pouco o
+pipeline clássico. A CNN, que opera sobre pixels, era mais suscetível; contudo, a
+queda foi de apenas $0{,}5\,\mathrm{pp}$ em F1-macro, atribuível à robustez do
+backbone ImageNet e ao tamanho limitado do test set (180 amostras).
 
-\subsection{Grad-CAM: Visualização de Ativações}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\textwidth]{../outputs/figures/gradcam_erros.png}
-    \caption{Grad-CAM nos erros da CNN: regiões que causaram predições incorretas.}
-    \label{fig:gradcam_erros}
-\end{figure}
-
-O Grad-CAM foi aplicado na última camada convolucional da MobileNetV2
-(\texttt{Conv\_1}). Nos exemplos corretos, o modelo ativa predominantemente
-a região central da fruta e manchas escuras (podridão). Nos erros, as ativações
-se concentram em regiões de sombra ou reflexo do fundo residual, sugerindo que
-a segmentação imperfecta em imagens externas ao dataset compromete a CNN.
-
-\subsection{Demais Contribuições Avançadas}
-
-\begin{itemize}
-    \item \textbf{SHAP (TreeExplainer):} interpretação quantitativa das predições
-          do RF, confirmando que \texttt{h\_mean} e \texttt{s\_mean} dominam as
-          decisões do modelo. Análise coerente com o domínio: mudança de cor é o
-          principal indicador físico de deterioração em frutas.
-
-    \item \textbf{Ablation study formal:} comparação sistemática de 4 grupos de
-          features $\times$ 3 modelos com CV=5 e reporte de média $\pm$ desvio,
-          permitindo quantificar a contribuição marginal de cada família.
-
-    \item \textbf{Seleção avançada de features:} RFE (55 features), SelectFromModel
-          e Lasso ($\ell_1$) foram aplicados e comparados, demonstrando que é
-          possível reduzir 30\% das features sem perda mensurável de desempenho.
-
-    \item \textbf{Interface Streamlit:} aplicação web interativa que recebe uma
-          imagem de fruta via upload, executa o pipeline completo (segmentação $\to$
-          extração de features $\to$ predição) e exibe a classe predita, a confiança
-          do modelo e a tabela de features extraídas em tempo real.
-\end{itemize}
+\textbf{Demais contribuições:}
+\textit{SHAP (TreeExplainer):} interpretação quantitativa das predições do RF, alinhada ao domínio.
+\textit{Ablation study:} 4 grupos $\times$ 3 modelos com CV=5, quantificando contribuição marginal de cada família.
+\textit{RFE:} redução de 65 para 45 features sem perda mensurável.
+\textit{Streamlit:} interface web com upload de imagem, segmentação e predição em tempo real.
+}
 
 \end{document}

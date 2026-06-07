@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.5.25)  25 MAY 2026 16:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.5.25)  7 JUN 2026 18:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -401,103 +401,68 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
-) (C:\Users\sampa\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count321
-\lst@gtempboxa=\box57
-\lst@token=\toks28
-\lst@length=\count322
-\lst@currlwidth=\dimen194
-\lst@column=\count323
-\lst@pos=\count324
-\lst@lostspace=\dimen195
-\lst@width=\dimen196
-\lst@newlines=\count325
-\lst@lineno=\count326
-\lst@maxwidth=\dimen197
-(C:\Users\sampa\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
-File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
-)
-(C:\Users\sampa\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
-File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
-\c@lstnumber=\count327
-\lst@skipnumbers=\count328
-\lst@framebox=\box58
-)
-(C:\Users\sampa\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
-File: listings.cfg 2025/11/14 1.11b listings configuration
-))
-Package: listings 2025/11/14 1.11b (Carsten Heinz)
-==> First Aid for listings.sty no longer applied!
-    Expected:
-        2024/09/23 1.10c (Carsten Heinz)
-    but found:
-        2025/11/14 1.11b (Carsten Heinz)
-    so I'm assuming it got fixed.
-(C:\Users\sampa\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+) (C:\Users\sampa\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
-\col@sep=\dimen198
-\ar@mcellbox=\box59
-\extrarowheight=\dimen199
-\NC@list=\toks29
+\col@sep=\dimen194
+\ar@mcellbox=\box57
+\extrarowheight=\dimen195
+\NC@list=\toks28
 \extratabsurround=\skip55
 \backup@length=\skip56
-\ar@cellbox=\box60
+\ar@cellbox=\box58
 )
 (C:\Users\sampa\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
 \multirow@colwidth=\skip57
-\multirow@cntb=\count329
+\multirow@cntb=\count321
 \multirow@dima=\skip58
-\bigstrutjot=\dimen256
-)
-(C:\Users\sampa\AppData\Local\Programs\MiKTeX\tex/latex/parskip\parskip.sty
-Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
+\bigstrutjot=\dimen196
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 29.
 
 (C:\Users\sampa\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count330
+\l__color_backend_stack_int=\count322
 ) (relatorio.aux
 Package babel Info: 'brazil' activates 'portuges' shorthands.
 (babel)             Reported on input line 8.
 )
 \openout1 = `relatorio.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
 
 (C:\Users\sampa\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count331
-\scratchdimen=\dimen257
-\scratchbox=\box61
-\nofMPsegments=\count332
-\nofMParguments=\count333
-\everyMPshowfont=\toks30
-\MPscratchCnt=\count334
-\MPscratchDim=\dimen258
-\MPnumerator=\count335
-\makeMPintoPDFobject=\count336
-\everyMPtoPDFconversion=\toks31
+\scratchcounter=\count323
+\scratchdimen=\dimen197
+\scratchbox=\box59
+\nofMPsegments=\count324
+\nofMParguments=\count325
+\everyMPshowfont=\toks29
+\MPscratchCnt=\count326
+\MPscratchDim=\dimen198
+\MPnumerator=\count327
+\makeMPintoPDFobject=\count328
+\everyMPtoPDFconversion=\toks30
 )
 (C:\Users\sampa\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
@@ -509,7 +474,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring ON on input line 39.
+Package hyperref Info: Link coloring ON on input line 32.
  (relatorio.out) (relatorio.out)
 \@outlinefile=\write3
 \openout3 = `relatorio.out'.
@@ -550,16 +515,14 @@ Package hyperref Info: Link coloring ON on input line 39.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count337
-<../outputs/figures/eda_exemplos_por_classe.png, id=103, 860.013pt x 567.5604pt
->
+<../outputs/figures/eda_exemplos_por_classe.png, id=43, 860.013pt x 567.5604pt>
+
 File: ../outputs/figures/eda_exemplos_por_classe.png Graphic file (type png)
 <use ../outputs/figures/eda_exemplos_por_classe.png>
 Package pdftex.def Info: ../outputs/figures/eda_exemplos_por_classe.png  used o
-n input line 51.
-(pdftex.def)             Requested size: 250.38564pt x 165.23781pt.
+n input line 44.
+(pdftex.def)             Requested size: 236.72888pt x 156.22247pt.
 [1
 
 {C:/Users/sampa/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <../outputs/f
@@ -568,367 +531,237 @@ igures/eda_exemplos_por_classe.png>] (relatorio.toc)
 \openout4 = `relatorio.toc'.
 
 
+Overfull \hbox (15.79218pt too wide) in paragraph at lines 71--77
+\T1/cmr/bx/n/12 200 por classe\T1/cmr/m/n/12 , em 6 clas-ses: \T1/cmtt/m/n/12 f
+resh_apple\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 rotten_apple\T1/cmr/m/n/12 , \T1/cmt
+t/m/n/12 fresh_banana\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 rotten_banana\T1/cmr/m/n/
+12 ,
+ []
+
+<../outputs/figures/eda_class_distribution.png, id=64, 714.9912pt x 352.1958pt>
+
+File: ../outputs/figures/eda_class_distribution.png Graphic file (type png)
+<use ../outputs/figures/eda_class_distribution.png>
+Package pdftex.def Info: ../outputs/figures/eda_class_distribution.png  used on
+ input line 88.
+(pdftex.def)             Requested size: 223.07211pt x 109.87819pt.
+File: ../outputs/figures/eda_exemplos_por_classe.png Graphic file (type png)
+<use ../outputs/figures/eda_exemplos_por_classe.png>
+Package pdftex.def Info: ../outputs/figures/eda_exemplos_por_classe.png  used o
+n input line 93.
+(pdftex.def)             Requested size: 209.41534pt x 138.20047pt.
+
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.66 \newpage
-              [1]
-<../outputs/figures/eda_class_distribution.png, id=146, 714.9912pt x 352.1958pt
->
-File: ../outputs/figures/eda_class_distribution.png Graphic file (type png)
-<use ../outputs/figures/eda_class_distribution.png>
-Package pdftex.def Info: ../outputs/figures/eda_class_distribution.png  used on
- input line 95.
-(pdftex.def)             Requested size: 236.72888pt x 116.60652pt.
-File: ../outputs/figures/eda_exemplos_por_classe.png Graphic file (type png)
-<use ../outputs/figures/eda_exemplos_por_classe.png>
-Package pdftex.def Info: ../outputs/figures/eda_exemplos_por_classe.png  used o
-n input line 101.
-(pdftex.def)             Requested size: 200.30852pt x 132.19025pt.
- [2 <../outputs/figures/eda_class_distribution.png>]
-Overfull \hbox (44.84755pt too wide) in paragraph at lines 165--171
-[]\T1/cmr/m/n/12 O pi-pe-line apli-cado foi: (1) con-ver-s„o para es-cala de ci
-nza; (2) su-a-vi-za-Á„o com \T1/cmtt/m/n/12 GaussianBlur\T1/cmr/m/n/12 ($\OT1/c
-mr/m/n/12 5[]5$\T1/cmr/m/n/12 );
- []
+l.130 \section
+              {Segmenta√ß√£o} [1]
+<../outputs/figures/seg_comparacao_metodos.png, id=77, 860.013pt x 1419.8646pt>
 
-<../outputs/figures/seg_otsu_comparacao.png, id=159, 860.013pt x 1691.118pt>
-File: ../outputs/figures/seg_otsu_comparacao.png Graphic file (type png)
-<use ../outputs/figures/seg_otsu_comparacao.png>
-Package pdftex.def Info: ../outputs/figures/seg_otsu_comparacao.png  used on in
-put line 174.
-(pdftex.def)             Requested size: 455.24411pt x 895.17871pt.
-[3]
-Overfull \vbox (216.89561pt too high) has occurred while \output is active []
-
-
-[4 <../outputs/figures/seg_otsu_comparacao.png>]
-<../outputs/figures/seg_watershed_comparacao.png, id=199, 860.013pt x 1691.118p
-t>
-File: ../outputs/figures/seg_watershed_comparacao.png Graphic file (type png)
-<use ../outputs/figures/seg_watershed_comparacao.png>
-Package pdftex.def Info: ../outputs/figures/seg_watershed_comparacao.png  used 
-on input line 192.
-(pdftex.def)             Requested size: 455.24411pt x 895.17871pt.
- [5]
-Overfull \vbox (216.89561pt too high) has occurred while \output is active []
-
-
-[6 <../outputs/figures/seg_watershed_comparacao.png>]
-Overfull \hbox (21.33pt too wide) in paragraph at lines 203--214
- [][] 
- []
-
-<../outputs/figures/seg_comparacao_metodos.png, id=211, 860.013pt x 1416.9738pt
->
 File: ../outputs/figures/seg_comparacao_metodos.png Graphic file (type png)
 <use ../outputs/figures/seg_comparacao_metodos.png>
 Package pdftex.def Info: ../outputs/figures/seg_comparacao_metodos.png  used on
- input line 226.
-(pdftex.def)             Requested size: 455.24411pt x 750.06284pt.
-[7]
-Overfull \vbox (71.77974pt too high) has occurred while \output is active []
+ input line 164.
+(pdftex.def)             Requested size: 418.82375pt x 691.47168pt.
 
 
-[8 <../outputs/figures/seg_comparacao_metodos.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 250--250
-[]|\T1/cmr/m/n/12 Momentos de
- []
+LaTeX Warning: Float too large for page by 13.18858pt on input line 167.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 251--252
-[]|$[][] [] [][]$ \T1/cmr/m/n/12 em es-cala
- []
+LaTeX Warning: Command \textdegree invalid in math mode on input line 174.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 256--257
-[]|\T1/cmr/m/n/12 Manchas es-cu-ras (mar-
- []
+LaTeX Warning: Command \textdegree invalid in math mode on input line 174.
 
 
-Underfull \hbox (badness 4608) in paragraph at lines 256--257
-\T1/cmr/m/n/12 rons/pretas) e perda de
- []
+LaTeX Warning: Command \textdegree invalid in math mode on input line 174.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 259--260
-[]|\T1/cmr/m/n/12 contrast, ho-mo-ge-neity,
- []
+LaTeX Warning: Command \textdegree invalid in math mode on input line 174.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 263--264
-[]|\T1/cmr/m/n/12 histograma nor-ma-li-
- []
+LaTeX Warning: Command \textdegree invalid in math mode on input line 174.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 263--264
-\T1/cmr/m/n/12 zado (26 bins), ra-
- []
+LaTeX Warning: Command \textdegree invalid in math mode on input line 174.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 263--264
-\T1/cmr/m/n/12 dius=3, n_points=24,
- []
+LaTeX Warning: Command \textdegree invalid in math mode on input line 174.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 272.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 272.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 272.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 272.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 272.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 272.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 272.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 272.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 174.
 
 Missing character: There is no ∞ in font cmr12!
 Missing character: There is no ∞ in font cmr12!
 Missing character: There is no ∞ in font cmr12!
 Missing character: There is no ∞ in font cmr12!
-<../outputs/figures/boxplots_por_classe.png, id=225, 1293.1512pt x 1561.5138pt>
 
+Underfull \hbox (badness 1715) in paragraph at lines 188--188
+[]|\T1/cmr/m/n/10.95 area, pe-ri-me-ter, ec-cen-tri-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--196
+[]|\T1/cmr/m/n/10.95 Textura
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--197
+[]|\T1/cmr/m/n/10.95 contrast, ho-mo-ge-neity,
+ []
+
+
+Underfull \hbox (badness 5077) in paragraph at lines 201--202
+[]|\T1/cmr/m/n/10.95 Padrıes lo-cais de casca
+ []
+
+[2 <../outputs/figures/eda_class_distribution.png>] [3 <../outputs/figures/seg_
+comparacao_metodos.png>]
+<../outputs/figures/boxplots_por_classe.png, id=93, 1293.1512pt x 1561.5138pt>
 File: ../outputs/figures/boxplots_por_classe.png Graphic file (type png)
 <use ../outputs/figures/boxplots_por_classe.png>
 Package pdftex.def Info: ../outputs/figures/boxplots_por_classe.png  used on in
-put line 289.
-(pdftex.def)             Requested size: 455.24411pt x 549.70699pt.
-[9]
-<../outputs/figures/selectkbest_scores.png, id=232, 714.9912pt x 424.9476pt>
+put line 215.
+(pdftex.def)             Requested size: 259.49246pt x 313.3456pt.
+<../outputs/figures/selectkbest_scores.png, id=94, 714.9912pt x 424.9476pt>
 File: ../outputs/figures/selectkbest_scores.png Graphic file (type png)
 <use ../outputs/figures/selectkbest_scores.png>
 Package pdftex.def Info: ../outputs/figures/selectkbest_scores.png  used on inp
-ut line 299.
-(pdftex.def)             Requested size: 218.51521pt x 129.87143pt.
-<../outputs/figures/rf_feature_importance.png, id=233, 715.473pt x 569.0058pt>
-File: ../outputs/figures/rf_feature_importance.png Graphic file (type png)
-<use ../outputs/figures/rf_feature_importance.png>
-Package pdftex.def Info: ../outputs/figures/rf_feature_importance.png  used on 
-input line 305.
-(pdftex.def)             Requested size: 218.51521pt x 173.7766pt.
- [10 <../outputs/figures/boxplots_por_classe.png>]
-<../outputs/figures/pca_2d.png, id=239, 712.1004pt x 496.7358pt>
+ut line 221.
+(pdftex.def)             Requested size: 182.09486pt x 108.22078pt.
+<../outputs/figures/pca_2d.png, id=95, 712.5822pt x 496.7358pt>
 File: ../outputs/figures/pca_2d.png Graphic file (type png)
 <use ../outputs/figures/pca_2d.png>
-Package pdftex.def Info: ../outputs/figures/pca_2d.png  used on input line 321.
+Package pdftex.def Info: ../outputs/figures/pca_2d.png  used on input line 237.
 
-(pdftex.def)             Requested size: 341.43307pt x 238.17276pt.
- [11 <../outputs/figures/selectkbest_scores.png> <../outputs/figures/rf_feature
-_importance.png> <../outputs/figures/pca_2d.png>]
-<../outputs/figures/ablation_heatmap.png, id=249, 528.5346pt x 352.1958pt>
+(pdftex.def)             Requested size: 273.14923pt x 190.4139pt.
+<../outputs/figures/ablation_heatmap.png, id=96, 528.5346pt x 352.1958pt>
 File: ../outputs/figures/ablation_heatmap.png Graphic file (type png)
 <use ../outputs/figures/ablation_heatmap.png>
 Package pdftex.def Info: ../outputs/figures/ablation_heatmap.png  used on input
- line 353.
-(pdftex.def)             Requested size: 327.7763pt x 218.41826pt.
- [12 <../outputs/figures/ablation_heatmap.png>]
-Overfull \hbox (1.55367pt too wide) in paragraph at lines 397--397
-[]|\T1/cmtt/m/n/12 sklearn.svm.SVC| 
+ line 265.
+(pdftex.def)             Requested size: 209.41534pt x 139.54305pt.
+
+Underfull \hbox (badness 2680) in paragraph at lines 303--303
+\OMS/cmsy/m/n/10.95 2 f[]g$\T1/cmr/m/n/10.95 ; gamma $\OMS/cmsy/m/n/10.95 2
  []
 
 
-Underfull \hbox (badness 8189) in paragraph at lines 398--398
-[]|\T1/cmr/m/n/12 C $\OMS/cmsy/m/n/12 2 f\OT1/cmr/m/n/12 0\OML/cmm/m/it/12 :\OT
-1/cmr/m/n/12 1\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1\OML/cmm/m/it/12 ; \OT1/cmr/m
-/n/12 10\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 100\OMS/cmsy/m/n/12 g$\T1/cmr/m/n/12
- ,
+Underfull \hbox (badness 10000) in paragraph at lines 306--306
+[]|\T1/cmtt/m/n/10.95 RandomForest-
  []
 
 
-Underfull \hbox (badness 3514) in paragraph at lines 398--398
-\T1/cmr/m/n/12 ker-nel $\OMS/cmsy/m/n/12 2 f[]\OML/cmm/m/it/12 ; []\OMS/cmsy/m/
-n/12 g$\T1/cmr/m/n/12 ,
+Underfull \hbox (badness 10000) in paragraph at lines 307--307
+[]|\T1/cmr/m/n/10.95 n_est $\OMS/cmsy/m/n/10.95 2 f\OT1/cmr/m/n/10.95 100\OML/c
+mm/m/it/10.95 ; \OT1/cmr/m/n/10.95 200\OMS/cmsy/m/n/10.95 g$\T1/cmr/m/n/10.95 ;
+
  []
 
 
-Overfull \hbox (44.76811pt too wide) in paragraph at lines 402--402
-[]|\T1/cmtt/m/n/12 RandomForestClassifier| 
+Underfull \hbox (badness 10000) in paragraph at lines 308--309
+[]|\T1/cmr/m/n/10.95 n_est=200,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 403--403
-[]|\T1/cmr/m/n/12 n_estimators $\OMS/cmsy/m/n/12 2
+Underfull \hbox (badness 10000) in paragraph at lines 308--309
+\T1/cmr/m/n/10.95 depth=None,
  []
 
 
-Underfull \hbox (badness 3460) in paragraph at lines 403--403
-\OMS/cmsy/m/n/12 f\OT1/cmr/m/n/12 100\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 200\OMS
-/cmsy/m/n/12 g$\T1/cmr/m/n/12 , max_depth
+Underfull \hbox (badness 10000) in paragraph at lines 310--310
+[]|\T1/cmtt/m/n/10.95 Logistic-
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 403--403
-\OMS/cmsy/m/n/12 2 f[]\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 10\OML/cmm/m/it/12 ; \
-OT1/cmr/m/n/12 20\OMS/cmsy/m/n/12 g$\T1/cmr/m/n/12 ,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 403--403
-\T1/cmr/m/n/12 min_samples_split
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 404--405
-[]|\T1/cmr/m/n/12 n_est.=100,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 404--405
-\T1/cmr/m/n/12 max_depth=None,
- []
-
-
-Overfull \hbox (20.07414pt too wide) in paragraph at lines 407--407
-[]|\T1/cmtt/m/n/12 LogisticRegression| 
- []
-
-
-Underfull \hbox (badness 3439) in paragraph at lines 408--408
-\T1/cmr/m/n/12 nalty $\OMS/cmsy/m/n/12 2 f\OML/cmm/m/it/12 `[]; `[]\OMS/cmsy/m/
-n/12 g$\T1/cmr/m/n/12 , sol-
- []
-
-
-Overfull \hbox (50.15692pt too wide) in paragraph at lines 428--438
- [][] 
- []
-
-<../outputs/figures/tabela_comparativa_final.png, id=260, 779.0706pt x 280.8894
-pt>
-File: ../outputs/figures/tabela_comparativa_final.png Graphic file (type png)
-<use ../outputs/figures/tabela_comparativa_final.png>
-Package pdftex.def Info: ../outputs/figures/tabela_comparativa_final.png  used 
-on input line 443.
-(pdftex.def)             Requested size: 386.96027pt x 139.51428pt.
-[13]
-<../outputs/figures/cm_rf.png, id=267, 500.5902pt x 424.4658pt>
+[4] [5 <../outputs/figures/boxplots_por_classe.png> <../outputs/figures/selectk
+best_scores.png> <../outputs/figures/pca_2d.png>]
+<../outputs/figures/cm_rf.png, id=116, 500.5902pt x 424.4658pt>
 File: ../outputs/figures/cm_rf.png Graphic file (type png)
 <use ../outputs/figures/cm_rf.png>
-Package pdftex.def Info: ../outputs/figures/cm_rf.png  used on input line 453.
+Package pdftex.def Info: ../outputs/figures/cm_rf.png  used on input line 350.
 (pdftex.def)             Requested size: 218.51521pt x 185.2888pt.
-<../outputs/figures/cm_svm.png, id=268, 500.5902pt x 424.4658pt>
-File: ../outputs/figures/cm_svm.png Graphic file (type png)
-<use ../outputs/figures/cm_svm.png>
-Package pdftex.def Info: ../outputs/figures/cm_svm.png  used on input line 459.
-
-(pdftex.def)             Requested size: 218.51521pt x 185.2888pt.
-<../outputs/figures/roc_rf.png, id=269, 570.4512pt x 424.4658pt>
+<../outputs/figures/roc_rf.png, id=117, 570.4512pt x 424.4658pt>
 File: ../outputs/figures/roc_rf.png Graphic file (type png)
 <use ../outputs/figures/roc_rf.png>
-Package pdftex.def Info: ../outputs/figures/roc_rf.png  used on input line 477.
+Package pdftex.def Info: ../outputs/figures/roc_rf.png  used on input line 355.
 
 (pdftex.def)             Requested size: 218.51521pt x 162.59404pt.
-<../outputs/figures/crossval_boxplot.png, id=270, 570.4512pt x 352.6776pt>
+<../outputs/figures/crossval_boxplot.png, id=118, 570.4512pt x 352.6776pt>
 File: ../outputs/figures/crossval_boxplot.png Graphic file (type png)
 <use ../outputs/figures/crossval_boxplot.png>
 Package pdftex.def Info: ../outputs/figures/crossval_boxplot.png  used on input
- line 483.
+ line 365.
 (pdftex.def)             Requested size: 218.51521pt x 135.09515pt.
- [14 <../outputs/figures/tabela_comparativa_final.png> <../outputs/figures/cm_r
-f.png> <../outputs/figures/cm_svm.png>]
-<../outputs/figures/shap_bar.png, id=280, 715.473pt x 569.9694pt>
+<../outputs/figures/shap_bar.png, id=119, 715.473pt x 569.9694pt>
 File: ../outputs/figures/shap_bar.png Graphic file (type png)
 <use ../outputs/figures/shap_bar.png>
-Package pdftex.def Info: ../outputs/figures/shap_bar.png  used on input line 50
-1.
+Package pdftex.def Info: ../outputs/figures/shap_bar.png  used on input line 37
+0.
 (pdftex.def)             Requested size: 218.51521pt x 174.07088pt.
-<../outputs/figures/shap_summary.png, id=281, 806.5332pt x 468.3096pt>
-File: ../outputs/figures/shap_summary.png Graphic file (type png)
-<use ../outputs/figures/shap_summary.png>
-Package pdftex.def Info: ../outputs/figures/shap_summary.png  used on input lin
-e 507.
-(pdftex.def)             Requested size: 218.51521pt x 126.88116pt.
-<../outputs/figures/shap_waterfall_0.png, id=282, 715.473pt x 350.7504pt>
-File: ../outputs/figures/shap_waterfall_0.png Graphic file (type png)
-<use ../outputs/figures/shap_waterfall_0.png>
-Package pdftex.def Info: ../outputs/figures/shap_waterfall_0.png  used on input
- line 523.
-(pdftex.def)             Requested size: 295.90588pt x 145.06096pt.
- [15 <../outputs/figures/roc_rf.png> <../outputs/figures/crossval_boxplot.png> 
-<../outputs/figures/shap_bar.png> <../outputs/figures/shap_summary.png>]
-<../outputs/figures/analise_erros.png, id=293, 1149.093pt x 853.2678pt>
+<../outputs/figures/analise_erros.png, id=120, 1149.093pt x 853.2678pt>
 File: ../outputs/figures/analise_erros.png Graphic file (type png)
 <use ../outputs/figures/analise_erros.png>
 Package pdftex.def Info: ../outputs/figures/analise_erros.png  used on input li
-ne 535.
-(pdftex.def)             Requested size: 455.24411pt x 338.04613pt.
- [16 <../outputs/figures/shap_waterfall_0.png> <../outputs/figures/analise_erro
-s.png>] [17]
-<../outputs/figures/cnn_training_curves.png, id=310, 1004.0712pt x 711.1368pt>
+ne 384.
+(pdftex.def)             Requested size: 400.61703pt x 297.47643pt.
+ [6 <../outputs/figures/ablation_heatmap.png>] [7 <../outputs/figures/cm_rf.png
+> <../outputs/figures/roc_rf.png> <../outputs/figures/crossval_boxplot.png> <..
+/outputs/figures/shap_bar.png>] [8 <../outputs/figures/analise_erros.png>]
+<../outputs/figures/cnn_training_curves.png, id=148, 1004.0712pt x 711.1368pt>
 File: ../outputs/figures/cnn_training_curves.png Graphic file (type png)
 <use ../outputs/figures/cnn_training_curves.png>
 Package pdftex.def Info: ../outputs/figures/cnn_training_curves.png  used on in
-put line 610.
-(pdftex.def)             Requested size: 218.51521pt x 154.75781pt.
-<../outputs/figures/gradcam_exemplos.png, id=311, 549.252pt x 1490.6892pt>
+put line 436.
+(pdftex.def)             Requested size: 168.71346pt x 119.49187pt.
+<../outputs/figures/gradcam_exemplos.png, id=149, 549.252pt x 1490.6892pt>
 File: ../outputs/figures/gradcam_exemplos.png Graphic file (type png)
 <use ../outputs/figures/gradcam_exemplos.png>
 Package pdftex.def Info: ../outputs/figures/gradcam_exemplos.png  used on input
- line 616.
-(pdftex.def)             Requested size: 218.51521pt x 593.05794pt.
- [18
-
- <../outputs/figures/cnn_training_curves.png> <../outputs/figures/gradcam_exemp
-los.png>]
-<../outputs/figures/gradcam_erros.png, id=320, 535.2798pt x 747.2718pt>
-File: ../outputs/figures/gradcam_erros.png Graphic file (type png)
-<use ../outputs/figures/gradcam_erros.png>
-Package pdftex.def Info: ../outputs/figures/gradcam_erros.png  used on input li
-ne 636.
-(pdftex.def)             Requested size: 341.43307pt x 476.67879pt.
- [19 <../outputs/figures/gradcam_erros.png>] [20] (relatorio.aux)
+ line 441.
+(pdftex.def)             Requested size: 44.02486pt x 119.48503pt.
+ [9 <../outputs/figures/cnn_training_curves.png> <../outputs/figures/gradcam_ex
+emplos.png>] (relatorio.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
 Package rerunfilecheck Info: File `relatorio.out' has not changed.
-(rerunfilecheck)             Checksum: E47E6DD58427BE0D696C21ED6570127A;4521.
+(rerunfilecheck)             Checksum: 33D5BB864D052666A49967E7F96B3E3C;1429.
  ) 
 Here is how much of TeX's memory you used:
- 15081 strings out of 467871
- 242700 string characters out of 5418376
- 760895 words of memory out of 5000000
- 43688 multiletter control sequences out of 15000+600000
- 642184 words of font info for 70 fonts, out of 8000000 for 9000
+ 13284 strings out of 467871
+ 216188 string characters out of 5418376
+ 658799 words of memory out of 5000000
+ 41967 multiletter control sequences out of 15000+600000
+ 643434 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,12n,79p,504b,1218s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,321b,586s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\sampa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
-1200.pk> <C:\Users\sampa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
-0\ecbx1440.pk> <C:\Users\sampa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
-/dpi600\ectt1095.pk> <C:\Users\sampa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
-pen/ec/dpi600\ecrm1095.pk> <C:\Users\sampa\AppData\Local\MiKTeX\fonts/pk/ljfour
-/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\sampa\AppData\Local\MiKTeX\fonts/pk/
-ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\sampa\AppData\Local\MiKTeX\fon
-ts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\sampa\AppData\Local\MiKT
-eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\sampa\AppData\Loca
-l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\sampa\AppDat
-a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\sampa\
-AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk><C:/Users/s
-ampa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C
-:/Users/sampa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex
-10.pfb><C:/Users/sampa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
-s/cm/cmmi12.pfb><C:/Users/sampa/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/amsfonts/cm/cmmi8.pfb><C:/Users/sampa/AppData/Local/Programs/MiKTeX/fonts/typ
-e1/public/amsfonts/cm/cmr12.pfb><C:/Users/sampa/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/sampa/AppData/Local/Programs/M
-iKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/sampa/AppData/Local/P
-rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on relatorio.pdf (21 pages, 14955533 bytes).
+1095.pk> <C:\Users\sampa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
+0\tcrm1200.pk> <C:\Users\sampa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
+/dpi600\ecti1095.pk> <C:\Users\sampa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
+pen/ec/dpi600\ecbx1095.pk> <C:\Users\sampa\AppData\Local\MiKTeX\fonts/pk/ljfour
+/jknappen/ec/dpi600\ectt1095.pk> <C:\Users\sampa\AppData\Local\MiKTeX\fonts/pk/
+ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\sampa\AppData\Local\MiKTeX\fon
+ts/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\sampa\AppData\Local\MiKT
+eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\sampa\AppData\Loca
+l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\sampa\AppDat
+a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\sampa\
+AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\
+sampa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\
+Users\sampa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk
+><C:/Users/sampa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
+mmi10.pfb><C:/Users/sampa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmmi12.pfb><C:/Users/sampa/AppData/Local/Programs/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmr10.pfb><C:/Users/sampa/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmr12.pfb><C:/Users/sampa/AppData/Local/Programs/MiKTe
+X/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/sampa/AppData/Local/Program
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/sampa/AppData/Loca
+l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on relatorio.pdf (10 pages, 10841267 bytes).
 PDF statistics:
- 928 PDF objects out of 1000 (max. 8388607)
- 94 named destinations out of 1000 (max. 500000)
- 311 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 779 PDF objects out of 1000 (max. 8388607)
+ 34 named destinations out of 1000 (max. 500000)
+ 151 words of extra memory for PDF output out of 10000 (max. 10000000)
 
