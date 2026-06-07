@@ -118,5 +118,6 @@ imagens originais. Os resultados reportados refletem essa configuracao limpa.
 | Integrante | Responsabilidade |
 |---|---|
 | Felipe de Mello Vieira | Notebooks 01 + 02 — segmentação, extração de features, EDA |
+| Felipe Yukiya Soares Uemura | Apoio na revisao e documentacao |
 | Gabriel Sampaio Giacomoni | Notebook 03 — classificação, SHAP, ablation study, relatório PDF |
 | Leonardo Gabriel Herédia | Notebook 04 + Streamlit + vídeo demo + README |
